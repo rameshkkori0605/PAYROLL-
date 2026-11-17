@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payslip - Apex Payroll Management System</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="logo-icon">₹</div>
+        <div>
+          <div class="brand-text">Apex Payroll</div>
+        </div>
+        <span class="brand-badge">HRMS</span>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Core Operations</div>
+        <a href="dashboard.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Dashboard
+        </a>
+        <a href="employees.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Employees
+        </a>
+        <a href="attendance.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Attendance
+        </a>
+
+        <div class="nav-section-title">Financials</div>
+        <a href="payroll.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><line x1="12" y1="18" x2="12" y2="20"/><line x1="12" y1="4" x2="12" y2="6"/></svg>
+          Salary & Payroll
+        </a>
+        <a href="payslip.html" class="nav-item active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          Payslips
+        </a>
+        <a href="payments.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          Disbursements
+        </a>
+        <a href="reports.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+          Reports & Audits
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-profile-badge">
+          <div class="user-avatar">A</div>
+          <div class="user-details">
+            <div class="user-name user-name-display">System Admin</div>
+            <div class="user-role user-role-display">Administrator</div>
+          </div>
+          <button class="topbar-btn" title="Logout" onclick="App.Auth.logout()" style="color:#f87171;">
+            <svg style="width:18px;height:18px;" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN WRAPPER -->
+    <div class="main-wrapper">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="topbar-btn mobile-toggle" onclick="document.querySelector('.sidebar').classList.toggle('mobile-open')">
+            <svg style="width:22px;height:22px;" viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+          <h1 class="page-title">Employee Salary Payslip</h1>
+        </div>
+        <div class="topbar-right">
+          <select id="payslip-selector" class="form-select" style="max-width:280px;">
+            <option value="">Select Payslip...</option>
+          </select>
+          <button class="btn btn-secondary btn-sm" onclick="window.print()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+            Print Payslip
+          </button>
+          <button class="btn btn-primary btn-sm" onclick="window.print()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download PDF
+          </button>
+        </div>
+      </header>
+
+      <main class="content-area">
+        <!-- PAYSLIP OFFICIAL TEMPLATE -->
+        <div class="payslip-wrapper" id="printable-payslip">
+          <!-- Company & Title Header -->
+          <div class="payslip-header">
+            <div>
+              <div class="company-title" id="ps-company-name">Apex Global Solutions Inc.</div>
+              <div class="company-sub" id="ps-company-address">104 Innovate Boulevard, Tech Hub Park, Sector 5, Bangalore - 560100</div>
+              <div class="company-sub" id="ps-company-contact">payroll@apexsolutions.com | +91 80 4123 4567</div>
+            </div>
+            <div class="payslip-badge">
+              <h3>Salary Pay Slip</h3>
+              <div id="ps-month-badge" style="font-weight:700;color:#0f172a;margin-top:0.25rem;">Salary Month: --</div>
+              <div style="margin-top:0.35rem;"><span class="badge badge-success" id="ps-payment-status"><span class="badge-dot"></span>Paid</span></div>
+            </div>
+          </div>
+
+          <!-- Employee Metadata Grid -->
+          <div class="payslip-meta-grid">
+            <div class="meta-item"><span class="meta-label">Employee Name:</span><span class="meta-val" id="ps-emp-name">--</span></div>
+            <div class="meta-item"><span class="meta-label">Employee ID:</span><span class="meta-val" id="ps-emp-id">--</span></div>
+            <div class="meta-item"><span class="meta-label">Department:</span><span class="meta-val" id="ps-department">--</span></div>
+            <div class="meta-item"><span class="meta-label">Designation:</span><span class="meta-val" id="ps-designation">--</span></div>
+            <div class="meta-item"><span class="meta-label">Bank Name:</span><span class="meta-val" id="ps-bank-name">--</span></div>
+            <div class="meta-item"><span class="meta-label">Account No:</span><span class="meta-val" id="ps-bank-acc">--</span></div>
+            <div class="meta-item"><span class="meta-label">IFSC Code:</span><span class="meta-val" id="ps-bank-ifsc">--</span></div>
+            <div class="meta-item"><span class="meta-label">Attendance / Days:</span><span class="meta-val" id="ps-work-days">--</span></div>
+          </div>
+
+          <!-- Earnings & Deductions Tables -->
+          <div class="payslip-tables-grid">
+            <!-- Earnings -->
+            <div class="breakdown-box">
+              <div class="breakdown-header">
+                <span>EARNINGS</span>
+                <span>AMOUNT (₹)</span>
+              </div>
+              <div class="breakdown-row"><span>Basic Salary</span><strong id="ps-basic">₹0.00</strong></div>
+              <div class="breakdown-row"><span>House Rent Allowance (HRA)</span><span id="ps-hra">₹0.00</span></div>
+              <div class="breakdown-row"><span>Dearness Allowance (DA)</span><span id="ps-da">₹0.00</span></div>
+              <div class="breakdown-row"><span>Other Allowances</span><span id="ps-allowance">₹0.00</span></div>
+              <div class="breakdown-row"><span>Bonus</span><span id="ps-bonus">₹0.00</span></div>
+              <div class="breakdown-row"><span>Overtime Pay</span><span id="ps-overtime">₹0.00</span></div>
+              <div class="breakdown-row total-row">
+                <span>GROSS EARNINGS</span>
+                <span id="ps-gross" style="color:#2563eb;">₹0.00</span>
+              </div>
+            </div>
+
+            <!-- Deductions -->
+            <div class="breakdown-box">
+              <div class="breakdown-header" style="background:#475569;">
+                <span>DEDUCTIONS</span>
+                <span>AMOUNT (₹)</span>
+              </div>
+              <div class="breakdown-row"><span>Provident Fund (PF)</span><span id="ps-pf">₹0.00</span></div>
+              <div class="breakdown-row"><span>Professional Tax (PT)</span><span id="ps-ptax">₹0.00</span></div>
+              <div class="breakdown-row"><span>Income Tax (TDS)</span><span id="ps-tax">₹0.00</span></div>
+              <div class="breakdown-row"><span>Unpaid Leave Deductions</span><span id="ps-leave-deduct">₹0.00</span></div>
+              <div class="breakdown-row"><span>Other Deductions</span><span id="ps-other-deduct">₹0.00</span></div>
+              <div class="breakdown-row" style="color:transparent;user-select:none;"><span>-</span><span>-</span></div>
+              <div class="breakdown-row total-row">
+                <span>TOTAL DEDUCTIONS</span>
+                <span id="ps-total-deductions" style="color:#ef4444;">₹0.00</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Net Pay Banner -->
+          <div class="net-pay-banner">
+            <div>
+              <div class="net-pay-title">Net Salary Payable</div>
+              <div class="net-pay-words" id="ps-net-words">--</div>
+            </div>
+            <div class="net-pay-amount" id="ps-net-pay">₹0.00</div>
+          </div>
+
+          <!-- Signature & Verification Footer -->
+          <div class="payslip-footer">
+            <div style="display:flex;justify-content:space-between;margin-top:2rem;margin-bottom:1.5rem;padding:0 2rem;">
+              <div style="border-top:1px solid #cbd5e1;width:180px;text-align:center;padding-top:0.35rem;font-weight:600;color:#64748b;">
+                Employee Signature
+              </div>
+              <div style="border-top:1px solid #cbd5e1;width:180px;text-align:center;padding-top:0.35rem;font-weight:600;color:#64748b;">
+                Authorized HR Signatory
+              </div>
+            </div>
+            <div>This is a computer-generated salary payslip and does not require an ink signature. Apex Payroll HRMS.</div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      App.Auth.checkSession();
+      App.Payslip.init();
+    });
+  </script>
+</body>
+</html>
